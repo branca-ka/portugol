@@ -47,59 +47,60 @@ funcao inicio()
 			caso 'A':
 			    se (m[0][0] != 'A'){
 			    	   escreva("Endereço já escolhido!")
-			    	   jogadaJogador1('1',m)}
+			    	   jogadaJogador1(jogador,m)}
 			    senao {m[0][0] = jogador}
 			    pare
 			caso 'B':
 			    se (m[0][1] != 'B'){
 			    	   escreva("Endereço já escolhido!")
-			    	   jogadaJogador1('1',m)}
+			    	   jogadaJogador1(jogador,m)}
 			    senao {m[0][1] = jogador}
 			    pare
 			caso 'C':
 			    se (m[0][2] != 'C'){
 			    	   escreva("Endereço já escolhido!")
-			    	   jogadaJogador1('1',m)}
+			    	   jogadaJogador1(jogador,m)}
 			    senao {m[0][2] = jogador}
 			    pare
 			caso 'D':
 			    se (m[1][0] != 'D'){
 			    	   escreva("Endereço já escolhido!")
-			    	   jogadaJogador1('1',m)}
+			    	   jogadaJogador1(jogador,m)}
 			    senao {m[1][0] = jogador}
 			    pare
 			caso 'E':
 			    se ((m[1][1] != 'E') ou (m[1][1] == '1')){
 			    	   escreva("Endereço já escolhido!")
-			    	   jogadaJogador1('1',m)}
+			    	   jogadaJogador1(jogador,m)}
 			    senao {m[1][1] = jogador}
 			    pare
 			caso 'F':
 			    se (m[1][2] != 'F'){
 			    	   escreva("Endereço já escolhido!")
-			    	   jogadaJogador1('1',m)}
+			    	   jogadaJogador1(jogador,m)}
 			    senao {m[1][2] = jogador}
 			    pare
 			caso 'G':
 			    se (m[2][0] != 'G'){
 			    	   escreva("Endereço já escolhido!")
-			    	   jogadaJogador1('1',m)}
+			    	   jogadaJogador1(jogador,m)}
 			    senao {m[2][0] = jogador}
 			    pare
 			caso 'H':
 			    se (m[2][1] != 'H'){
 			    	   escreva("Endereço já escolhido!")
-			    	   jogadaJogador1('1',m)}
+			    	   jogadaJogador1(jogador,m)}
 			    senao {m[2][1] = jogador}
 			    pare
 			caso 'I':
 			    se (m[2][2] != 'I'){
 			    	   escreva("Endereço já escolhido!")
-			    	   jogadaJogador1('1',m)}
+			    	   jogadaJogador1(jogador,m)}
 			    senao {m[2][2] = jogador}
 			    pare
 		}
 	}
+	
 	funcao jogadaJogador1(caracter jogador,caracter m[][]){		
 		caracter endereco
 		escreva("Jogador, escolha o local onde irá colocar o seu numero. \n")
@@ -109,6 +110,7 @@ funcao inicio()
 		limpa()
 		escMatriz(m)
 	}
+	
 	funcao logico velha(caracter m[][]){
 		se ((m[0][0] == m[2][1]) e (m[0][0] == m[0][2])){
 		   retorne verdadeiro}
@@ -204,6 +206,8 @@ funcao inicio()
 	}
 	
 	funcao caracter continua(inteiro jogada,caracter m[][]){
+		inteiro i
+		i = Util.sorteia(1,9)
 		se (jogada == 1) {
 			se (m[1][1]=='E') {retorne('E')}
 			senao se (m[2][0]=='G') {retorne('G')}
@@ -215,8 +219,17 @@ funcao inicio()
 			senao se (m[1][2]=='F') {retorne('F')}
 			senao {retorne('H')}
 			}
-		senao se (jogada == 0) {retorne 'C'}
-		senao {		
+		senao se (jogada == 0) {
+			se (i==1) {retorne 'A'}
+			senao se (i==2) {retorne 'A'}
+			senao se (i==3) {retorne 'B'}
+			senao se (i==4) {retorne 'C'}
+			senao se (i==5) {retorne 'D'}
+			senao se (i==6) {retorne 'E'}
+			senao se (i==7) {retorne 'F'}
+			senao se (i==8) {retorne 'G'}
+			retorne 'H'}
+		senao {			
 			se       (m[0][0] == '2' e m[0][1] == 'B' e m[0][2] == 'C') {retorne 'C'}    // trata linha
 			senao se (m[0][0] == 'A' e m[0][1] == '2' e m[0][2] == 'C') {retorne 'A'}
 			senao se (m[0][0] == 'A' e m[0][1] == 'B' e m[0][2] == '2') {retorne 'A'}
@@ -247,8 +260,15 @@ funcao inicio()
 
 			senao se (m[2][0] == '2' e m[1][1] == 'E' e m[0][2] == 'G') {retorne 'E'}    // trata VERTICAL
 			senao se (m[2][0] == 'G' e m[1][1] == '2' e m[0][2] == 'G') {retorne 'G'}
-			senao {retorne 'G'}			
-		    
+			senao se (m[2][0] == 'G' e m[1][1] == 'E' e m[0][2] == '2') {retorne 'G'}
+			senao {
+				para (inteiro a = 0; a < 3; a++){
+					para (inteiro b = 0; b < 3; b++){
+						se (m[a][b] != '1' e m[a][b]!= '2') {retorne m[a][b]}
+					}
+				}
+				retorne 'X'						    
+			}
 		}
 	}
 	
@@ -281,9 +301,9 @@ funcao inicio()
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 8057; 
- * @DOBRAMENTO-CODIGO = [34, 44, 102, 111, 123, 131, 168, 254];
- * @PONTOS-DE-PARADA = 21, 22, 23;
+ * @POSICAO-CURSOR = 10989; 
+ * @DOBRAMENTO-CODIGO = [34, 103, 113, 125, 133, 170, 274];
+ * @PONTOS-DE-PARADA = ;
  * @SIMBOLOS-INSPECIONADOS = ;
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
  * @FILTRO-ARVORE-TIPOS-DE-SIMBOLO = variavel, vetor, matriz, funcao;
